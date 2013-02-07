@@ -120,17 +120,13 @@
     if(nil != self.session && self.document != nil)
     {
         self.documentService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
-// TODO: Restore
-#if 0
-        [self.documentService retrieveRenditionOfNode:self.document toOutputStream:outputStream renditionName:kAlfrescoThumbnailRendition completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
-             if (nil != contentFile)
+        [self.documentService retrieveRenditionOfNode:self.document toFileWithUrl:nil renditionName:kAlfrescoThumbnailRendition completionBlock:^(NSData *data, NSError *error){
+             if (nil != data)
              {
-                 NSData *data = [[NSFileManager defaultManager] contentsAtPath:[contentFile.fileUrl path]];
                  self.thumbnail = [UIImage imageWithData:data];
                  [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
              }
          }];
-#endif
     }
 }
 
