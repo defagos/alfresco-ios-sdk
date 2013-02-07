@@ -173,18 +173,13 @@
         avatarImageView.image = [UIImage imageWithData:[self.avatarDictionary objectForKey:userId]];
         return;
     }
-    // TODO: Restore
-#if 0
-//    __weak DocumentViewController *weakSelf = self;
     [self.personService retrievePersonWithIdentifier:userId completionBlock:^(AlfrescoPerson *person, NSError *error) {
         if (nil != person)
         {
             // TODO: Restore
-            [self.personService retrieveAvatarForPerson:person completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
-                if (nil != contentFile)
+            [self.personService retrieveAvatarForPerson:person toFileWithUrl:nil completionBlock:^(NSData *data, NSError *error){
+                if (nil != data)
                 {
-                    NSData *data = [[NSFileManager defaultManager] contentsAtPath:[contentFile.fileUrl path]];
-                    log(@"the avatar file is at location %@ and the lenght of the image data is %d",[contentFile.fileUrl path], data.length);
                     [self.avatarDictionary setObject:data forKey:userId];
                     avatarImageView.image = [UIImage imageWithData:data];
                     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
@@ -196,7 +191,6 @@
             }];
         }
     }];
-#endif
 }
 
 /**
