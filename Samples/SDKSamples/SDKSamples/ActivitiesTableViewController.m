@@ -86,16 +86,12 @@
         [avatarImageView setImage:[UIImage imageNamed:@"avatar.png"]];
     }
     
-//    __weak ActivitiesTableViewController *weakSelf = self;
     [self.personService retrievePersonWithIdentifier:userId completionBlock:^(AlfrescoPerson *person, NSError *error) {
         if (nil != person)
         {
-            // TODO: Restore
-#if 0
-            [self.personService retrieveAvatarForPerson:person toFileWithUrl:fileURL completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
-                if (nil != contentFile)
+            [self.personService retrieveAvatarForPerson:person toFileWithUrl:nil completionBlock:^(NSData *data, NSError *error){
+                if (nil != data)
                 {
-                    NSData *data = [[NSFileManager defaultManager] contentsAtPath:[contentFile.fileUrl path]];
                     [self.avatarDictionary setObject:data forKey:userId];
                     avatarImageView.image = [UIImage imageWithData:data];
                 }
@@ -104,7 +100,6 @@
                     log(@"Failed to load avatar, error message is %@ and code is %d", [error localizedDescription], [error code]);
                 }
             }];
-#endif
         }
     }];
 }
