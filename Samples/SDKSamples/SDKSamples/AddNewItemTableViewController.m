@@ -19,7 +19,6 @@
 #import "AddNewItemTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "AddPhotoTableViewController.h"
-#import "AlfrescoContentFile.h"
 #import "AlfrescoTag.h"
 
 @interface AddNewItemTableViewController ()
@@ -105,6 +104,8 @@
         [properties setValue:description forKey:@"cm:description"];
     }
     
+    // TODO: Restore
+#if 0
     self.documentFolderService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
     AlfrescoContentFile *imageFile = nil;
     if ([[name lowercaseString] hasSuffix:@".jpg"]) 
@@ -196,6 +197,7 @@
       progressBlock:^(NSInteger bytesUploaded, NSInteger totalBytes){
           self.progressView.progress = ((float)bytesUploaded/(float)totalBytes) - 0.3;
       }];
+#endif
 }
 
 #pragma mark - Add photo delegate

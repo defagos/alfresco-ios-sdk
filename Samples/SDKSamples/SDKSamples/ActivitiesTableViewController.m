@@ -18,7 +18,6 @@
 
 #import "ActivitiesTableViewController.h"
 #import "AlfrescoActivityEntry.h"
-#import "AlfrescoContentFile.h"
 #import "AlfrescoErrors.h"
 
 @interface ActivitiesTableViewController ()
@@ -91,7 +90,9 @@
     [self.personService retrievePersonWithIdentifier:userId completionBlock:^(AlfrescoPerson *person, NSError *error) {
         if (nil != person)
         {
-            [self.personService retrieveAvatarForPerson:person completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
+            // TODO: Restore
+#if 0
+            [self.personService retrieveAvatarForPerson:person toFileWithURL:fileURL completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
                 if (nil != contentFile)
                 {
                     NSData *data = [[NSFileManager defaultManager] contentsAtPath:[contentFile.fileUrl path]];
@@ -103,6 +104,7 @@
                     log(@"Failed to load avatar, error message is %@ and code is %d", [error localizedDescription], [error code]);
                 }
             }];
+#endif
         }
     }];
 }

@@ -97,20 +97,6 @@
 			remoteGlobalIDString = 4EB076A715B00D8E00DF7DED;
 			remoteInfo = AlfrescoSDKTests;
 		};
-		6FD306BB16C3E00900276A04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6FD306B616C3E00900276A04 /* AlfrescoSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EB0769715B00D8E00DF7DED;
-			remoteInfo = AlfrescoSDK;
-		};
-		6FD306BD16C3E00900276A04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6FD306B616C3E00900276A04 /* AlfrescoSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EB076A715B00D8E00DF7DED;
-			remoteInfo = AlfrescoSDKTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -138,7 +124,6 @@
 		4EAA12661577CD6D001B073B /* MobileSDKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileSDKWebViewController.m; sourceTree = "<group>"; };
 		4EBBC4FA1585FE0B00EFDC16 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6FD306AB16C3D6C600276A04 /* AlfrescoSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AlfrescoSDK.xcodeproj; path = ../../AlfrescoSDK/AlfrescoSDK.xcodeproj; sourceTree = "<group>"; };
-		6FD306B616C3E00900276A04 /* AlfrescoSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AlfrescoSDK.xcodeproj; path = ../../AlfrescoSDK/AlfrescoSDK.xcodeproj; sourceTree = "<group>"; };
 		8219446C161B980E00D07520 /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
 		8219446D161B980E00D07520 /* cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud@2x.png"; sourceTree = "<group>"; };
 		8219446E161B980E00D07520 /* repository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repository.png; sourceTree = "<group>"; };
@@ -246,15 +231,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6FD306B716C3E00900276A04 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6FD306BC16C3E00900276A04 /* libAlfrescoSDKv1.0.2.a */,
-				6FD306BE16C3E00900276A04 /* AlfrescoSDKTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		8276E188155EFA8200344A29 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,7 +319,6 @@
 		829C5637155DB8F6004EE3C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6FD306B616C3E00900276A04 /* AlfrescoSDK.xcodeproj */,
 				4EBBC4FA1585FE0B00EFDC16 /* QuartzCore.framework */,
 				D6A69930156FCF9E0094686D /* MobileCoreServices.framework */,
 				D6A698A2156A5BB10094686D /* QuickLook.framework */,
@@ -453,10 +428,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6FD306B716C3E00900276A04 /* Products */;
-					ProjectRef = 6FD306B616C3E00900276A04 /* AlfrescoSDK.xcodeproj */;
-				},
-				{
 					ProductGroup = 6FD306AC16C3D6C600276A04 /* Products */;
 					ProjectRef = 6FD306AB16C3D6C600276A04 /* AlfrescoSDK.xcodeproj */;
 				},
@@ -481,20 +452,6 @@
 			fileType = wrapper.cfbundle;
 			path = AlfrescoSDKTests.octest;
 			remoteRef = 6FD306B216C3D6C700276A04 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6FD306BC16C3E00900276A04 /* libAlfrescoSDKv1.0.2.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAlfrescoSDKv1.0.2.a;
-			remoteRef = 6FD306BB16C3E00900276A04 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6FD306BE16C3E00900276A04 /* AlfrescoSDKTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AlfrescoSDKTests.octest;
-			remoteRef = 6FD306BD16C3E00900276A04 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -678,11 +635,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDKSamples/SDKSamples-Prefix.pch";
 				INFOPLIST_FILE = "SDKSamples/SDKSamples-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/SDKSamples\"",
-					"\"$(SRCROOT)/AlfrescoSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -698,11 +651,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDKSamples/SDKSamples-Prefix.pch";
 				INFOPLIST_FILE = "SDKSamples/SDKSamples-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/SDKSamples\"",
-					"\"$(SRCROOT)/AlfrescoSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

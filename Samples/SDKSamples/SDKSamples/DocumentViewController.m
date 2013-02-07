@@ -120,8 +120,9 @@
     if(nil != self.session && self.document != nil)
     {
         self.documentService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
-//        __weak DocumentViewController *weakSelf = self;
-        [self.documentService retrieveRenditionOfNode:self.document renditionName:kAlfrescoThumbnailRendition completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
+// TODO: Restore
+#if 0
+        [self.documentService retrieveRenditionOfNode:self.document toOutputStream:outputStream renditionName:kAlfrescoThumbnailRendition completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
              if (nil != contentFile)
              {
                  NSData *data = [[NSFileManager defaultManager] contentsAtPath:[contentFile.fileUrl path]];
@@ -129,6 +130,7 @@
                  [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
              }
          }];
+#endif
     }
 }
 
@@ -175,11 +177,13 @@
         avatarImageView.image = [UIImage imageWithData:[self.avatarDictionary objectForKey:userId]];
         return;
     }
-    
+    // TODO: Restore
+#if 0
 //    __weak DocumentViewController *weakSelf = self;
     [self.personService retrievePersonWithIdentifier:userId completionBlock:^(AlfrescoPerson *person, NSError *error) {
         if (nil != person)
         {
+            // TODO: Restore
             [self.personService retrieveAvatarForPerson:person completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
                 if (nil != contentFile)
                 {
@@ -195,8 +199,8 @@
                 }
             }];
         }
-        
     }];
+#endif
 }
 
 /**
@@ -350,6 +354,8 @@
 //    __weak DocumentViewController *weakSelf = self;
     if(nil != self.session && self.document != nil)
     {
+        // TODO: Restore
+#if 0
         [self.documentService retrieveContentOfDocument:self.document
                                         completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
              if (nil == contentFile) 
@@ -376,6 +382,7 @@
          {
              self.progressView.progress = (float)bytesDownloaded/(float)bytesTotal;
          }];
+#endif
     }
 }
 
