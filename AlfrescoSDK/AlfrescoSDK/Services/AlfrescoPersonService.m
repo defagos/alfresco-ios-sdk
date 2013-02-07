@@ -42,7 +42,7 @@
     [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
+- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithUrl:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
 {
     [self doesNotRecognizeSelector:_cmd];
 }

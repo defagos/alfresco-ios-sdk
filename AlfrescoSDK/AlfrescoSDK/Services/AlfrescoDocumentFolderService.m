@@ -738,7 +738,7 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 }
 
 - (void)retrieveContentOfDocument:(AlfrescoDocument *)document
-                    toFileWithURL:(NSURL *)fileURL
+                    toFileWithUrl:(NSURL *)fileURL
                   completionBlock:(AlfrescoDataCompletionBlock)completionBlock
                     progressBlock:(AlfrescoProgressBlock)progressBlock
 {

@@ -79,7 +79,7 @@
     }];
 }
 
-- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
+- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithUrl:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
 {
     [AlfrescoErrors assertArgumentNotNil:person argumentName:@"person"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -91,7 +91,7 @@
     }
     AlfrescoDocumentFolderService *docService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
     [docService retrieveNodeWithIdentifier:person.avatarIdentifier completionBlock:^(AlfrescoNode *node, NSError *error){
-        [docService retrieveContentOfDocument:(AlfrescoDocument *)node toFileWithURL:fileURL completionBlock:^(NSData *data, NSError *avatarError){
+        [docService retrieveContentOfDocument:(AlfrescoDocument *)node toFileWithUrl:fileURL completionBlock:^(NSData *data, NSError *avatarError){
              completionBlock(data, avatarError);
          } progressBlock:^(NSInteger bytesTransferred, NSInteger bytesTotal){}];
     }];    

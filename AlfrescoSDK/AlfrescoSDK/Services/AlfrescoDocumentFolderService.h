@@ -226,13 +226,13 @@
  will be informed when the content is downloaded.
  
  @param document The document that needs to be downloaded.
- @param fileURL A file URL if the document must be saved to the disk
+ @param fileURL A file URL if the document must be saved to the disk. Might be nil
  @param completionBlock The block containing the document NSData and NSError object. error will be nil if successful. Otherwise, the data will be nil.
  @param progressBlock The block that's called with the download progress.
  */
 // 
 - (void)retrieveContentOfDocument:(AlfrescoDocument *)document
-                    toFileWithURL:(NSURL *)fileURL
+                    toFileWithUrl:(NSURL *)fileURL
                   completionBlock:(AlfrescoDataCompletionBlock)completionBlock
                     progressBlock:(AlfrescoProgressBlock)progressBlock;
 

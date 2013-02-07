@@ -351,21 +351,19 @@
     self.documentService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
     self.progressView.hidden = NO;
     self.progressView.progress = 0.0;
-//    __weak DocumentViewController *weakSelf = self;
+    
     if(nil != self.session && self.document != nil)
     {
-        // TODO: Restore
-#if 0
-        [self.documentService retrieveContentOfDocument:self.document
-                                        completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
-             if (nil == contentFile) 
+        NSURL *temporaryFileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:self.document.name]];
+        [self.documentService retrieveContentOfDocument:self.document toFileWithUrl:temporaryFileURL completionBlock:^(NSData *data, NSError *error){
+             if (nil == data)
              {
                  [self showFailureAlert:@"error_downloading_document"];
              }
              else 
              {
                  self.progressView.progress = 1.0;
-                 self.documentPreviewItem = [[BasicPreviewItem alloc] initWithUrl:contentFile.fileUrl andTitle:self.document.name];
+                 self.documentPreviewItem = [[BasicPreviewItem alloc] initWithUrl:temporaryFileURL andTitle:self.document.name];
                  QLPreviewController *previewController = [[QLPreviewController alloc] init];
                  
                  //setting the datasource property to self
@@ -377,12 +375,10 @@
              }
              self.progressView.hidden = YES;
              [self.activityIndicator stopAnimating];
-         } 
-                                          progressBlock:^(NSInteger bytesDownloaded, NSInteger bytesTotal)
+         } progressBlock:^(NSInteger bytesDownloaded, NSInteger bytesTotal)
          {
              self.progressView.progress = (float)bytesDownloaded/(float)bytesTotal;
          }];
-#endif
     }
 }
 

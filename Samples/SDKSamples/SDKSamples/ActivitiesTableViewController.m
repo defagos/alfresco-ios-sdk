@@ -92,7 +92,7 @@
         {
             // TODO: Restore
 #if 0
-            [self.personService retrieveAvatarForPerson:person toFileWithURL:fileURL completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
+            [self.personService retrieveAvatarForPerson:person toFileWithUrl:fileURL completionBlock:^(AlfrescoContentFile *contentFile, NSError *error){
                 if (nil != contentFile)
                 {
                     NSData *data = [[NSFileManager defaultManager] contentsAtPath:[contentFile.fileUrl path]];
