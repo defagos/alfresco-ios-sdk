@@ -208,11 +208,12 @@
 /** Retrieves the thumbnail rendition file for the given node.
  
  @param node the AlfrescoNode for which a thumbnail rendition image is to be retrieved.
+ @param fileUrl A file URL if the rendition must be saved to the disk. Might be nil
  @param renditionName The type of thumbnail to be retrieved. For example 'doclib' can be used (defined as _AlfrescoThumbnailRendition_ )
  @param completionBlock The block that's called with the local AlfrescoContentFile containing the thumbnail URL/data.
  */
 - (void)retrieveRenditionOfNode:(AlfrescoNode *)node
-                      toFileURL:(NSURL *)fileURL
+                  toFileWithUrl:(NSURL *)fileUrl
                   renditionName:(NSString *)renditionName
                 completionBlock:(AlfrescoDataCompletionBlock)completionBlock;
 
@@ -226,13 +227,13 @@
  will be informed when the content is downloaded.
  
  @param document The document that needs to be downloaded.
- @param fileURL A file URL if the document must be saved to the disk. Might be nil
+ @param fileUrl A file URL if the document must be saved to the disk. Might be nil
  @param completionBlock The block containing the document NSData and NSError object. error will be nil if successful. Otherwise, the data will be nil.
  @param progressBlock The block that's called with the download progress.
  */
 // 
 - (void)retrieveContentOfDocument:(AlfrescoDocument *)document
-                    toFileWithUrl:(NSURL *)fileURL
+                    toFileWithUrl:(NSURL *)fileUrl
                   completionBlock:(AlfrescoDataCompletionBlock)completionBlock
                     progressBlock:(AlfrescoProgressBlock)progressBlock;
 

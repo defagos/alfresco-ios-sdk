@@ -683,13 +683,12 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 }
 
 - (void)retrieveRenditionOfNode:(AlfrescoNode *)node
-                      toFileURL:(NSURL *)fileURL
+                  toFileWithUrl:(NSURL *)fileUrl
                   renditionName:(NSString *)renditionName
                 completionBlock:(AlfrescoDataCompletionBlock)completionBlock
 {
     
     [AlfrescoErrors assertArgumentNotNil:node argumentName:@"folder"];
-    [AlfrescoErrors assertArgumentNotNil:[fileURL path] argumentName:@"fileURL"];
     [AlfrescoErrors assertArgumentNotNil:renditionName argumentName:@"renditionName"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
@@ -717,28 +716,41 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
             else
             {
                 CMISRendition *thumbnailRendition = (CMISRendition *)[renditions objectAtIndex:0];
-                log(@"************* NUMBER OF RENDITION OBJECTS FOUND IS %d and the document ID is %@",renditions.count, thumbnailRendition.renditionDocumentId);
-                NSString *tmpFileName = [NSTemporaryDirectory() stringByAppendingFormat:@"%@.png",node.name];
-                log(@"************* DOWNLOADING TO FILE %@",tmpFileName);
-                [thumbnailRendition downloadRenditionContentToFile:tmpFileName completionBlock:^(NSError *downloadError){
-                    if (downloadError)
-                    {
-                        completionBlock(nil, downloadError);
-                    }
-                    else
-                    {
-                        completionBlock([NSData dataWithContentsOfFile:tmpFileName], nil);
-                    }
-                } progressBlock:^(unsigned long long bytesDownloaded, unsigned long long bytesTotal){
-                    log(@"************* PROGRESS DOWNLOADING FILE with %llu bytes downloaded from %llu total ",bytesDownloaded, bytesTotal);
-                }];
+                if (fileUrl)
+                {
+                    [thumbnailRendition downloadRenditionContentToFile:[fileUrl path] completionBlock:^(NSError *downloadError) {
+                        if (downloadError)
+                        {
+                            completionBlock(nil, downloadError);
+                        }
+                        else
+                        {
+                            completionBlock([NSData dataWithContentsOfURL:fileUrl], nil);
+                        }
+                    } progressBlock:nil];
+                }
+                else
+                {
+                    NSOutputStream *outputStream = [NSOutputStream outputStreamToMemory];
+                    [outputStream open];
+                    [thumbnailRendition downloadRenditionContentToOutputStream:outputStream completionBlock:^(NSError *downloadError){
+                        NSData *data = nil;
+                        if (! downloadError)
+                        {
+                            data = [outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+                        }
+                        
+                        [outputStream close];
+                        completionBlock(data, downloadError);
+                    } progressBlock:nil];
+                }
             }
         }
     }];
 }
 
 - (void)retrieveContentOfDocument:(AlfrescoDocument *)document
-                    toFileWithUrl:(NSURL *)fileURL
+                    toFileWithUrl:(NSURL *)fileUrl
                   completionBlock:(AlfrescoDataCompletionBlock)completionBlock
                     progressBlock:(AlfrescoProgressBlock)progressBlock
 {
@@ -746,15 +758,15 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
     [AlfrescoErrors assertArgumentNotNil:document.identifier argumentName:@"document.identifer"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     
-    if (fileURL) {
-        [self.cmisSession downloadContentOfCMISObject:document.identifier toFile:[fileURL path] completionBlock:^(NSError *error){
-            if (error)
+    if (fileUrl) {
+        [self.cmisSession downloadContentOfCMISObject:document.identifier toFile:[fileUrl path] completionBlock:^(NSError *downloadError){
+            if (downloadError)
             {
-                completionBlock(nil, error);
+                completionBlock(nil, downloadError);
             }
             else
             {
-                completionBlock([NSData dataWithContentsOfURL:fileURL], nil);
+                completionBlock([NSData dataWithContentsOfURL:fileUrl], nil);
             }
         } progressBlock:^(unsigned long long bytesDownloaded, unsigned long long bytesTotal){
             progressBlock(bytesDownloaded, bytesTotal);
@@ -764,15 +776,15 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
         NSOutputStream *outputStream = [NSOutputStream outputStreamToMemory];
         [outputStream open];
         
-        [self.cmisSession downloadContentOfCMISObject:document.identifier toOutputStream:outputStream completionBlock:^(NSError *error) {
+        [self.cmisSession downloadContentOfCMISObject:document.identifier toOutputStream:outputStream completionBlock:^(NSError *downloadError) {
             NSData *data = nil;
-            if (!error)
+            if (!downloadError)
             {
                 data = [outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
             }
             
             [outputStream close];
-            completionBlock(data, error);
+            completionBlock(data, downloadError);
         } progressBlock:^(unsigned long long bytesDownloaded, unsigned long long bytesTotal) {
             progressBlock(bytesDownloaded, bytesTotal);
         }];
