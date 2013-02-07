@@ -744,24 +744,39 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 {
     [AlfrescoErrors assertArgumentNotNil:document argumentName:@"document"];
     [AlfrescoErrors assertArgumentNotNil:document.identifier argumentName:@"document.identifer"];
-    [AlfrescoErrors assertArgumentNotNil:[fileURL path] argumentName:@"fileURL"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     
-    [self.cmisSession downloadContentOfCMISObject:document.identifier toFile:[fileURL path] completionBlock:^(NSError *error){
-        if (error)
-        {
-            completionBlock(nil, error);
-        }
-        else
-        {
-            completionBlock([NSData dataWithContentsOfURL:fileURL], nil);
-        }
-    } progressBlock:^(unsigned long long bytesDownloaded, unsigned long long bytesTotal){
-        if (progressBlock)
-        {
+    if (fileURL) {
+        [self.cmisSession downloadContentOfCMISObject:document.identifier toFile:[fileURL path] completionBlock:^(NSError *error){
+            if (error)
+            {
+                completionBlock(nil, error);
+            }
+            else
+            {
+                completionBlock([NSData dataWithContentsOfURL:fileURL], nil);
+            }
+        } progressBlock:^(unsigned long long bytesDownloaded, unsigned long long bytesTotal){
             progressBlock(bytesDownloaded, bytesTotal);
-        }
-    }];
+        }];
+    }
+    else {
+        NSOutputStream *outputStream = [NSOutputStream outputStreamToMemory];
+        [outputStream open];
+        
+        [self.cmisSession downloadContentOfCMISObject:document.identifier toOutputStream:outputStream completionBlock:^(NSError *error) {
+            NSData *data = nil;
+            if (!error)
+            {
+                data = [outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+            }
+            
+            [outputStream close];
+            completionBlock(data, error);
+        } progressBlock:^(unsigned long long bytesDownloaded, unsigned long long bytesTotal) {
+            progressBlock(bytesDownloaded, bytesTotal);
+        }];
+    }
 }
 
 #pragma mark - Modification methods
