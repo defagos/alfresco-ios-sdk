@@ -30,8 +30,8 @@
 @property (nonatomic, strong, readwrite) AlfrescoObjectConverter *objectConverter;
 @property (nonatomic, weak, readwrite) id<AlfrescoAuthenticationProvider> authenticationProvider;
 - (AlfrescoPerson *) alfrescoPersonFromJSONData:(NSData *)data error:(NSError **)outError;
-- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
-- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
+- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock;
+- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock;
 @end
 
 
@@ -80,7 +80,7 @@
 
 }
 
-- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
+- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
 {
     [AlfrescoErrors assertArgumentNotNil:person argumentName:@"person"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -97,7 +97,7 @@
 
 }
 
-- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
+- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
 {
     NSString *requestString = [kAlfrescoOnPremiseAvatarForPersonAPI stringByReplacingOccurrencesOfString:kAlfrescoPersonId withString:person.identifier];
     NSURL *url = [AlfrescoHTTPUtils buildURLFromBaseURLString:[self.session.baseUrl absoluteString] extensionURL:requestString];
@@ -108,18 +108,18 @@
         }
         else
         {
-            NSError *writeError = nil;
-            if ([responseData writeToURL:fileURL options:0 error:&writeError]) {
-                completionBlock(YES, nil);
+            if (fileURL) {
+                NSError *writeError = nil;
+                if (! [responseData writeToURL:fileURL options:0 error:&writeError]) {
+                    log(@"Could not save data to %@. Reason: %@", fileURL, writeError);
+                }
             }
-            else {
-                completionBlock(NO, writeError);
-            }
+            completionBlock(responseData, nil);
         }
     }];
 }
 
-- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
+- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoDataCompletionBlock)completionBlock
 {
     NSString *avatarId = person.avatarIdentifier;
     if (nil == avatarId)
@@ -132,17 +132,17 @@
     [AlfrescoHTTPUtils executeRequestWithURL:url session:self.session completionBlock:^(NSData *responseData, NSError *error){
         if (nil == responseData)
         {
-            completionBlock(NO, error);
+            completionBlock(nil, error);
         }
         else
         {
-            NSError *writeError = nil;
-            if ([responseData writeToURL:fileURL options:0 error:&writeError]) {
-                completionBlock(YES, nil);
+            if (fileURL) {
+                NSError *writeError = nil;
+                if (! [responseData writeToURL:fileURL options:0 error:&writeError]) {
+                    log(@"Could not save data to %@. Reason: %@", fileURL, writeError);
+                }
             }
-            else {
-                completionBlock(NO, writeError);
-            }
+            completionBlock(responseData, nil);
         }
     }];
 }

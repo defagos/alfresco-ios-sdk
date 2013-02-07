@@ -214,12 +214,7 @@
 - (void)retrieveRenditionOfNode:(AlfrescoNode *)node
                       toFileURL:(NSURL *)fileURL
                   renditionName:(NSString *)renditionName
-                completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
-
-- (void)retrieveRenditionOfNode:(AlfrescoNode *)node
-                 toOutputStream:(NSOutputStream *)outputStream
-                  renditionName:(NSString *)renditionName
-                completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
+                completionBlock:(AlfrescoDataCompletionBlock)completionBlock;
 
 
 /**---------------------------------------------------------------------------------------
@@ -237,12 +232,7 @@
 // 
 - (void)retrieveContentOfDocument:(AlfrescoDocument *)document
                     toFileWithURL:(NSURL *)fileURL
-                  completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
-                    progressBlock:(AlfrescoProgressBlock)progressBlock;
-
-- (void)retrieveContentOfDocument:(AlfrescoDocument *)document
-                   toOutputStream:(NSOutputStream *)outputStream
-                  completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
+                  completionBlock:(AlfrescoDataCompletionBlock)completionBlock
                     progressBlock:(AlfrescoProgressBlock)progressBlock;
 
 /** Updates a document with the contents of a local file.
