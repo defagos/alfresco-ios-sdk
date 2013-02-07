@@ -86,7 +86,7 @@
     
     if (nil == person.avatarIdentifier)
     {
-        completionBlock(nil, [AlfrescoErrors alfrescoErrorWithAlfrescoErrorCode:kAlfrescoErrorCodePerson]);
+        completionBlock(NO, [AlfrescoErrors alfrescoErrorWithAlfrescoErrorCode:kAlfrescoErrorCodePerson]);
         return;
     }
     AlfrescoDocumentFolderService *docService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
@@ -94,7 +94,6 @@
         [docService retrieveContentOfDocument:(AlfrescoDocument *)node toFileWithURL:fileURL completionBlock:^(BOOL success, NSError *avatarError){
              completionBlock(success, avatarError);
          } progressBlock:^(NSInteger bytesTransferred, NSInteger bytesTotal){}];
-         
     }];    
 }
 

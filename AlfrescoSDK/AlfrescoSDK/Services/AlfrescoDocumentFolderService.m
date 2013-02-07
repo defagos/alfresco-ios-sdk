@@ -784,7 +784,7 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
     [self.cmisSession downloadContentOfCMISObject:document.identifier toOutputStream:outputStream completionBlock:^(NSError *error) {
         if (error)
         {
-            completionBlock(nil, error);
+            completionBlock(NO, error);
         }
         else
         {
