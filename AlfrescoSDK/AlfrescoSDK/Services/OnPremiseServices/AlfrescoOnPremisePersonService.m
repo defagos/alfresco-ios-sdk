@@ -30,8 +30,8 @@
 @property (nonatomic, strong, readwrite) AlfrescoObjectConverter *objectConverter;
 @property (nonatomic, weak, readwrite) id<AlfrescoAuthenticationProvider> authenticationProvider;
 - (AlfrescoPerson *) alfrescoPersonFromJSONData:(NSData *)data error:(NSError **)outError;
-- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock;
-- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock;
+- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
+- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
 @end
 
 
@@ -80,7 +80,7 @@
 
 }
 
-- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock
+- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
 {
     [AlfrescoErrors assertArgumentNotNil:person argumentName:@"person"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -88,33 +88,38 @@
     NSNumber *majorVersion = repoInfo.majorVersion;
     if ([majorVersion intValue] < 4)
     {
-        [self retrieveAvatarForPersonV3x:person completionBlock:completionBlock];
+        [self retrieveAvatarForPersonV3x:person toFileWithURL:fileURL completionBlock:completionBlock];
     }
     else
     {
-        [self retrieveAvatarForPersonV4x:person completionBlock:completionBlock];
+        [self retrieveAvatarForPersonV4x:person toFileWithURL:fileURL completionBlock:completionBlock];
     }
 
 }
 
-- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock
+- (void)retrieveAvatarForPersonV4x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
 {
     NSString *requestString = [kAlfrescoOnPremiseAvatarForPersonAPI stringByReplacingOccurrencesOfString:kAlfrescoPersonId withString:person.identifier];
     NSURL *url = [AlfrescoHTTPUtils buildURLFromBaseURLString:[self.session.baseUrl absoluteString] extensionURL:requestString];
     [AlfrescoHTTPUtils executeRequestWithURL:url session:self.session completionBlock:^(NSData *responseData, NSError *error){
         if (nil == responseData)
         {
-            completionBlock(nil, error);
+            completionBlock(NO, error);
         }
         else
         {
-            AlfrescoContentFile *avatarFile = [[AlfrescoContentFile alloc] initWithData:responseData mimeType:@"application/octet-stream"];
-            completionBlock(avatarFile, nil);
+            NSError *writeError = nil;
+            if ([responseData writeToURL:fileURL options:0 error:&writeError]) {
+                completionBlock(YES, nil);
+            }
+            else {
+                completionBlock(NO, writeError);
+            }
         }
     }];
 }
 
-- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock
+- (void)retrieveAvatarForPersonV3x:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
 {
     NSString *avatarId = person.avatarIdentifier;
     if (nil == avatarId)
@@ -127,21 +132,23 @@
     [AlfrescoHTTPUtils executeRequestWithURL:url session:self.session completionBlock:^(NSData *responseData, NSError *error){
         if (nil == responseData)
         {
-            completionBlock(nil, error);
+            completionBlock(NO, error);
         }
         else
         {
-            AlfrescoContentFile *avatarFile = [[AlfrescoContentFile alloc] initWithData:responseData mimeType:@"application/octet-stream"];
-            completionBlock(avatarFile, nil);
+            NSError *writeError = nil;
+            if ([responseData writeToURL:fileURL options:0 error:&writeError]) {
+                completionBlock(YES, nil);
+            }
+            else {
+                completionBlock(NO, writeError);
+            }
         }
     }];
-    
-    
 }
 
-
-
 #pragma mark - private methods
+
 - (AlfrescoPerson *) alfrescoPersonFromJSONData:(NSData *)data error:(NSError *__autoreleasing *)outError
 {
     if (nil == data)

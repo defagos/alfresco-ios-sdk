@@ -72,13 +72,14 @@
  @param completionBlock The block that's called with the created document in case the operation succeeds.
  @param progressBlock The block that's called with the upload progress.
  */
+#if 0
 - (void)createDocumentWithName:(NSString *)documentName
                 inParentFolder:(AlfrescoFolder *)folder
                    contentFile:(AlfrescoContentFile *)file
                     properties:(NSDictionary *)properties
                completionBlock:(AlfrescoDocumentCompletionBlock)completionBlock
                  progressBlock:(AlfrescoProgressBlock)progressBlock;
-
+#endif
 
 
 /**---------------------------------------------------------------------------------------
@@ -211,10 +212,14 @@
  @param completionBlock The block that's called with the local AlfrescoContentFile containing the thumbnail URL/data.
  */
 - (void)retrieveRenditionOfNode:(AlfrescoNode *)node
+                      toFileURL:(NSURL *)fileURL
                   renditionName:(NSString *)renditionName
-                completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock;
+                completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
 
-
+- (void)retrieveRenditionOfNode:(AlfrescoNode *)node
+                 toOutputStream:(NSOutputStream *)outputStream
+                  renditionName:(NSString *)renditionName
+                completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
 
 
 /**---------------------------------------------------------------------------------------
@@ -231,9 +236,14 @@
  */
 // 
 - (void)retrieveContentOfDocument:(AlfrescoDocument *)document
-                  completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock
+                    toFileWithURL:(NSURL *)fileURL
+                  completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
                     progressBlock:(AlfrescoProgressBlock)progressBlock;
 
+- (void)retrieveContentOfDocument:(AlfrescoDocument *)document
+                   toOutputStream:(NSOutputStream *)outputStream
+                  completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock
+                    progressBlock:(AlfrescoProgressBlock)progressBlock;
 
 /** Updates a document with the contents of a local file.
  
@@ -242,12 +252,12 @@
  @param completionBlock The block that's called with the updated document in case the operation succeeds.
  @param progressBlock The block that's called with the upload progress.
  */
-
+#if 0
 - (void)updateContentOfDocument:(AlfrescoDocument *)document
                     contentFile:(AlfrescoContentFile *)file
                 completionBlock:(AlfrescoDocumentCompletionBlock)completionBlock
                   progressBlock:(AlfrescoProgressBlock)progressBlock;
-
+#endif
 
 /** Updates the properties of a specific node.
  

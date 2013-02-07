@@ -165,8 +165,6 @@
 		4EB077A815B00EE800DF7DED /* AlfrescoActivityEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0771915B00EE700DF7DED /* AlfrescoActivityEntry.m */; };
 		4EB077A915B00EE800DF7DED /* AlfrescoComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB0771A15B00EE700DF7DED /* AlfrescoComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EB077AA15B00EE800DF7DED /* AlfrescoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0771B15B00EE700DF7DED /* AlfrescoComment.m */; };
-		4EB077AB15B00EE800DF7DED /* AlfrescoContentFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB0771C15B00EE700DF7DED /* AlfrescoContentFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4EB077AC15B00EE800DF7DED /* AlfrescoContentFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0771D15B00EE700DF7DED /* AlfrescoContentFile.m */; };
 		4EB077AD15B00EE800DF7DED /* AlfrescoDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB0771E15B00EE700DF7DED /* AlfrescoDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EB077AE15B00EE800DF7DED /* AlfrescoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0771F15B00EE700DF7DED /* AlfrescoDocument.m */; };
 		4EB077AF15B00EE800DF7DED /* AlfrescoFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB0772015B00EE700DF7DED /* AlfrescoFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -420,8 +418,6 @@
 		4EB0771915B00EE700DF7DED /* AlfrescoActivityEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlfrescoActivityEntry.m; sourceTree = "<group>"; };
 		4EB0771A15B00EE700DF7DED /* AlfrescoComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlfrescoComment.h; sourceTree = "<group>"; };
 		4EB0771B15B00EE700DF7DED /* AlfrescoComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlfrescoComment.m; sourceTree = "<group>"; };
-		4EB0771C15B00EE700DF7DED /* AlfrescoContentFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlfrescoContentFile.h; sourceTree = "<group>"; };
-		4EB0771D15B00EE700DF7DED /* AlfrescoContentFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlfrescoContentFile.m; sourceTree = "<group>"; };
 		4EB0771E15B00EE700DF7DED /* AlfrescoDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlfrescoDocument.h; sourceTree = "<group>"; };
 		4EB0771F15B00EE700DF7DED /* AlfrescoDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlfrescoDocument.m; sourceTree = "<group>"; };
 		4EB0772015B00EE700DF7DED /* AlfrescoFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlfrescoFolder.h; sourceTree = "<group>"; };
@@ -857,8 +853,6 @@
 				4EB0771915B00EE700DF7DED /* AlfrescoActivityEntry.m */,
 				4EB0771A15B00EE700DF7DED /* AlfrescoComment.h */,
 				4EB0771B15B00EE700DF7DED /* AlfrescoComment.m */,
-				4EB0771C15B00EE700DF7DED /* AlfrescoContentFile.h */,
-				4EB0771D15B00EE700DF7DED /* AlfrescoContentFile.m */,
 				4EB0771E15B00EE700DF7DED /* AlfrescoDocument.h */,
 				4EB0771F15B00EE700DF7DED /* AlfrescoDocument.m */,
 				4EB0772015B00EE700DF7DED /* AlfrescoFolder.h */,
@@ -968,7 +962,6 @@
 				4EB077A515B00EE800DF7DED /* AlfrescoErrors.h in Headers */,
 				4EB077A715B00EE800DF7DED /* AlfrescoActivityEntry.h in Headers */,
 				4EB077A915B00EE800DF7DED /* AlfrescoComment.h in Headers */,
-				4EB077AB15B00EE800DF7DED /* AlfrescoContentFile.h in Headers */,
 				4EB077AD15B00EE800DF7DED /* AlfrescoDocument.h in Headers */,
 				4EB077AF15B00EE800DF7DED /* AlfrescoFolder.h in Headers */,
 				4EB077B115B00EE800DF7DED /* AlfrescoKeywordSearchOptions.h in Headers */,
@@ -1231,7 +1224,6 @@
 				4EB077A615B00EE800DF7DED /* AlfrescoErrors.m in Sources */,
 				4EB077A815B00EE800DF7DED /* AlfrescoActivityEntry.m in Sources */,
 				4EB077AA15B00EE800DF7DED /* AlfrescoComment.m in Sources */,
-				4EB077AC15B00EE800DF7DED /* AlfrescoContentFile.m in Sources */,
 				4EB077AE15B00EE800DF7DED /* AlfrescoDocument.m in Sources */,
 				4EB077B015B00EE800DF7DED /* AlfrescoFolder.m in Sources */,
 				4EB077B215B00EE800DF7DED /* AlfrescoKeywordSearchOptions.m in Sources */,

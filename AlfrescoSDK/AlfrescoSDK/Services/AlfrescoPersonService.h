@@ -54,5 +54,5 @@
  @param person - AlfrescoPerson object for which the avatar is being retrieved.
  @param completionBlock - contains the AlfrescoContentFile object with a pointer to the avatar image if successful, or nil if not.
  */
-- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person completionBlock:(AlfrescoContentFileCompletionBlock)completionBlock;
+- (void)retrieveAvatarForPerson:(AlfrescoPerson *)person toFileWithURL:(NSURL *)fileURL completionBlock:(AlfrescoBOOLCompletionBlock)completionBlock;
 @end

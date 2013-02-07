@@ -22,7 +22,6 @@
 #import <Foundation/Foundation.h>
 #import "AlfrescoPagingResult.h"
 #import "AlfrescoListingContext.h"
-#import "AlfrescoContentFile.h"
 #import "AlfrescoPermissions.h"
 #import "AlfrescoPerson.h"
 #import "AlfrescoSite.h"
@@ -54,7 +53,6 @@ typedef void (^AlfrescoNodeCompletionBlock)(AlfrescoNode *node, NSError *error);
 typedef void (^AlfrescoDocumentCompletionBlock)(AlfrescoDocument *document, NSError *error);
 typedef void (^AlfrescoPagingResultCompletionBlock)(AlfrescoPagingResult *pagingResult, NSError *error);
 typedef void (^AlfrescoProgressBlock)(NSInteger bytesTransferred, NSInteger bytesTotal);
-typedef void (^AlfrescoContentFileCompletionBlock)(AlfrescoContentFile *contentFile, NSError *error);
 typedef void (^AlfrescoPermissionsCompletionBlock)(AlfrescoPermissions *permissions, NSError *error);
 typedef void (^AlfrescoPersonCompletionBlock)(AlfrescoPerson *person, NSError *error);
 typedef void (^AlfrescoSiteCompletionBlock)(AlfrescoSite *site, NSError *error);
