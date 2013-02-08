@@ -795,19 +795,16 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 
 #pragma mark - Modification methods
 
-#if 0
 - (void)updateContentOfDocument:(AlfrescoDocument *)document
-                    contentFile:(AlfrescoContentFile *)file
+                       withData:(NSData *)data
                 completionBlock:(AlfrescoDocumentCompletionBlock)completionBlock
                   progressBlock:(AlfrescoProgressBlock)progressBlock
 {
-    [AlfrescoErrors assertArgumentNotNil:file argumentName:@"file"];
+    [AlfrescoErrors assertArgumentNotNil:data argumentName:@"data"];
     [AlfrescoErrors assertArgumentNotNil:document argumentName:@"document"];
     [AlfrescoErrors assertArgumentNotNil:document.identifier argumentName:@"document.identifer"];
     [AlfrescoErrors assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-
     
-//    __weak AlfrescoDocumentFolderService *weakSelf = self;
     [self.cmisSession retrieveObject:document.identifier completionBlock:^(CMISObject *cmisObject, NSError *error){
         if (nil == cmisObject)
         {
@@ -816,7 +813,8 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
         else
         {
             CMISDocument *document = (CMISDocument *)cmisObject;
-            [document changeContentToContentOfFile:[file.fileUrl path] withOverwriteExisting:YES completionBlock:^(NSError *error){
+            NSInputStream *inputStream = [NSInputStream inputStreamWithData:data];
+            [document changeContentToContentOfInputStream:inputStream bytesExpected:[data length] withFileName:document.name withOverwriteExisting:YES completionBlock:^(NSError *error) {
                 if (error)
                 {
                     completionBlock(nil, error);
@@ -849,8 +847,6 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
         }
     }];
 }
-
-#endif
 
 - (void)updatePropertiesOfNode:(AlfrescoNode *)node 
                 properties:(NSDictionary *)properties

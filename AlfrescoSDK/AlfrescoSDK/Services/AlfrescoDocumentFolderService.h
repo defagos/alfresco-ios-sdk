@@ -240,16 +240,14 @@
 /** Updates a document with the contents of a local file.
  
  @param document The document that needs to be updated.
- @param contentFile The Alfresco Content File to be updated.
+ @param data The data to be uploaded
  @param completionBlock The block that's called with the updated document in case the operation succeeds.
  @param progressBlock The block that's called with the upload progress.
  */
-#if 0
 - (void)updateContentOfDocument:(AlfrescoDocument *)document
-                    contentFile:(AlfrescoContentFile *)file
+                       withData:(NSData *)data
                 completionBlock:(AlfrescoDocumentCompletionBlock)completionBlock
                   progressBlock:(AlfrescoProgressBlock)progressBlock;
-#endif
 
 /** Updates the properties of a specific node.
  
