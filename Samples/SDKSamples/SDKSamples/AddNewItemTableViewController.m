@@ -104,33 +104,26 @@
         [properties setValue:description forKey:@"cm:description"];
     }
     
-    // TODO: Restore
-#if 0
     self.documentFolderService = [[AlfrescoDocumentFolderService alloc] initWithSession:self.session];
-    AlfrescoContentFile *imageFile = nil;
-    if ([[name lowercaseString] hasSuffix:@".jpg"]) 
+    
+    NSString *mimeType = nil;
+    NSData *data = nil;
+    if ([[name lowercaseString] hasSuffix:@".png"])
     {
-        imageFile = [[AlfrescoContentFile alloc] 
-                     initWithData:UIImageJPEGRepresentation(self.selectedPhoto, 1.0) 
-                     mimeType:@"image/jpeg"];
+        mimeType = @"image/png";
+        data = UIImagePNGRepresentation(self.selectedPhoto);
     }
-    else if ([[name lowercaseString] hasSuffix:@".png"]) 
+    else
     {
-        imageFile = [[AlfrescoContentFile alloc] 
-                     initWithData:UIImagePNGRepresentation(self.selectedPhoto) 
-                     mimeType:@"image/png"];
-    }
-    else 
-    {
-        imageFile = [[AlfrescoContentFile alloc] 
-                     initWithData:UIImageJPEGRepresentation(self.selectedPhoto, 1.0) 
-                     mimeType:@"image/jpeg"];
+        mimeType = @"image/jpeg";
+        data = UIImageJPEGRepresentation(self.selectedPhoto, 1.0) ;
     }
     
-//    __weak AddNewItemTableViewController *weakSelf = self;
-    [self.documentFolderService createDocumentWithName:name 
-                                        inParentFolder:self.folder 
-                                           contentFile:imageFile properties:properties 
+    [self.documentFolderService createDocumentWithName:name
+                                              mimeType:mimeType
+                                        inParentFolder:self.folder
+                                              fromData:data
+                                            properties:properties
                                        completionBlock:^(AlfrescoDocument *document, NSError *error){
           if (nil == document) 
           {                                               
@@ -157,10 +150,12 @@
                   }
                   
                   self.taggingService = [[AlfrescoTaggingService alloc] initWithSession:self.session];
+                  
+                  __weak AddNewItemTableViewController *weakSelf = self;
                   [self.taggingService addTags:tagStrings toNode:document completionBlock:^(BOOL success, NSError *error){
                       if (!success) 
                       {
-                          self.progressView.hidden = YES;
+                          weakSelf.progressView.hidden = YES;
                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:localized(@"error_title")
                                                                           message:[NSString stringWithFormat:@"%@, %@",localized(@"error_adding_tags"), [error localizedDescription]] 
                                                                          delegate:nil 
@@ -171,15 +166,14 @@
                       }
                       else 
                       {
-                          self.progressView.progress = 1.0;
-                          if ([self.addNewItemDelegate respondsToSelector:@selector(updateFolderContent)])
+                          weakSelf.progressView.progress = 1.0;
+                          if ([weakSelf.addNewItemDelegate respondsToSelector:@selector(updateFolderContent)])
                           {
-                              [self.addNewItemDelegate updateFolderContent];
+                              [weakSelf.addNewItemDelegate updateFolderContent];
                           }
-                          self.progressView.hidden = YES;
-                          [self.navigationController popViewControllerAnimated:YES];
+                          weakSelf.progressView.hidden = YES;
+                          [weakSelf.navigationController popViewControllerAnimated:YES];
                       }
-                       
                   }];
               }
               else 
@@ -197,7 +191,6 @@
       progressBlock:^(NSInteger bytesUploaded, NSInteger totalBytes){
           self.progressView.progress = ((float)bytesUploaded/(float)totalBytes) - 0.3;
       }];
-#endif
 }
 
 #pragma mark - Add photo delegate

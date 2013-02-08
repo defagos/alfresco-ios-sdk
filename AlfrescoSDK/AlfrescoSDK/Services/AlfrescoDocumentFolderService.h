@@ -66,20 +66,20 @@
 /** Creates a new document using the contents of a local file. The new document is created within the given folder.
  
  @param documentName The name of the document to be created in the repository
+ @param mimeType The document MIME type
  @param folder The parent folder to create the document in.
- @param file The local file to be uploaded.
+ @param data The document data to be uploaded
  @param properties Additional properties that are used to create the document.
  @param completionBlock The block that's called with the created document in case the operation succeeds.
  @param progressBlock The block that's called with the upload progress.
  */
-#if 0
 - (void)createDocumentWithName:(NSString *)documentName
+                      mimeType:(NSString *)mimeType
                 inParentFolder:(AlfrescoFolder *)folder
-                   contentFile:(AlfrescoContentFile *)file
+                      fromData:(NSData *)data
                     properties:(NSDictionary *)properties
                completionBlock:(AlfrescoDocumentCompletionBlock)completionBlock
                  progressBlock:(AlfrescoProgressBlock)progressBlock;
-#endif
 
 
 /**---------------------------------------------------------------------------------------

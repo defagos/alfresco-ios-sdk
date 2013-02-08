@@ -93,7 +93,9 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 
 #pragma mark - Create methods
 
-- (void)createFolderWithName:(NSString *)folderName inParentFolder:(AlfrescoFolder *)folder properties:(NSDictionary *)properties 
+- (void)createFolderWithName:(NSString *)folderName
+              inParentFolder:(AlfrescoFolder *)folder
+                  properties:(NSDictionary *)properties
              completionBlock:(AlfrescoFolderCompletionBlock)completionBlock;
 {
     [AlfrescoErrors assertArgumentNotNil:folder argumentName:@"folder"];
@@ -134,15 +136,15 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
     }];
 }
 
-#if 0
 - (void)createDocumentWithName:(NSString *)documentName
+                      mimeType:(NSString *)mimeType
                 inParentFolder:(AlfrescoFolder *)folder
-                   contentFile:(AlfrescoContentFile *)file
+                      fromData:(NSData *)data
                     properties:(NSDictionary *)properties 
                completionBlock:(AlfrescoDocumentCompletionBlock)completionBlock
                  progressBlock:(AlfrescoProgressBlock)progressBlock
 {
-    [AlfrescoErrors assertArgumentNotNil:file argumentName:@"file"];
+    [AlfrescoErrors assertArgumentNotNil:data argumentName:@"data"];
     [AlfrescoErrors assertArgumentNotNil:folder argumentName:@"folder"];
     [AlfrescoErrors assertArgumentNotNil:folder.identifier argumentName:@"folder.identifier"];
     [AlfrescoErrors assertArgumentNotNil:documentName argumentName:@"folderName"];
@@ -166,7 +168,8 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
     
         
 //    __weak AlfrescoDocumentFolderService *weakSelf = self;
-    [self.cmisSession createDocumentFromFilePath:[file.fileUrl path] withMimeType:file.mimeType withProperties:properties inFolder:folder.identifier completionBlock:^(NSString *identifier, NSError *error){
+    NSInputStream *inputStream = [NSInputStream inputStreamWithData:data];
+    [self.cmisSession createDocumentFromInputStream:inputStream withMimeType:mimeType withProperties:properties inFolder:folder.identifier bytesExpected:[data length] completionBlock:^(NSString *identifier, NSError *error){
         if (nil == identifier)
         {
             NSError *alfrescoError = [AlfrescoErrors alfrescoErrorWithUnderlyingError:error andAlfrescoErrorCode:kAlfrescoErrorCodeDocumentFolder];
@@ -200,7 +203,6 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
         }
     }];
 }
-#endif
 
 #pragma mark - Retrieval methods
 - (void)retrieveRootFolderWithCompletionBlock:(AlfrescoFolderCompletionBlock)completionBlock
