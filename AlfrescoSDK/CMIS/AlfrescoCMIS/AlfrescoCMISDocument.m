@@ -32,7 +32,7 @@
 
 - (id)initWithObjectData:(CMISObjectData *)objectData withSession:(CMISSession *)session
 {
-    self = [super initWithObjectData:objectData withSession:session];
+    self = [super initWithObjectData:objectData session:session];
     if (self)
     {
         self.aspectTypes = [AlfrescoCMISUtil processExtensionElementsForObject:self];

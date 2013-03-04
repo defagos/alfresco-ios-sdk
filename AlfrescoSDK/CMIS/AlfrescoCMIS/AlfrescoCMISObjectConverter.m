@@ -30,7 +30,6 @@
 #import "CMISTypeDefinition.h"
 #import "CMISPropertyDefinition.h"
 #import "AlfrescoCMISDocument.h"
-#import "CMISISO8601DateFormatter.h"
 #import "AlfrescoCMISFolder.h"
 #import "CMISDateUtil.h"
 #import "AlfrescoErrors.h"
@@ -63,11 +62,11 @@
 
     if (objectData.baseType == CMISBaseTypeDocument)
     {
-        object = [[AlfrescoCMISDocument alloc] initWithObjectData:objectData withSession:self.session];
+        object = [[AlfrescoCMISDocument alloc] initWithObjectData:objectData session:self.session];
     }
     else if (objectData.baseType == CMISBaseTypeFolder)
     {
-        object = [[AlfrescoCMISFolder alloc] initWithObjectData:objectData withSession:self.session];
+        object = [[AlfrescoCMISFolder alloc] initWithObjectData:objectData session:self.session];
     }
 
     return object;
@@ -98,7 +97,7 @@
     
     if (nil == objectTypeIdString)
     {
-        completionBlock( nil, [CMISErrors createCMISErrorWithCode:kCMISErrorCodeInvalidArgument withDetailedDescription:@"Type property must be set"]);
+        completionBlock( nil, [CMISErrors createCMISErrorWithCode:kCMISErrorCodeInvalidArgument detailedDescription:@"Type property must be set"]);
         return;
     }
 //    log(@"<<<<<< convertProperties forObjectTypeId %@  and objectTypeIdString %@ >>>>>>>>>>>>> ", objectTypeId, objectTypeIdString);
@@ -106,7 +105,7 @@
     [self retrieveAspectTypeDefinitionsFromObjectID:objectTypeIdString completionBlock:^(NSArray *returnedTypes, NSError *error){
         if (0 == returnedTypes.count)
         {
-            completionBlock(nil, [CMISErrors cmisError:error withCMISErrorCode:kCMISErrorCodeRuntime]);
+            completionBlock(nil, [CMISErrors cmisError:error cmisErrorCode:kCMISErrorCodeRuntime]);
             return;
         }
         else
@@ -158,7 +157,7 @@
                     if (!matchingPropertyDefinitionFound)
                     {
                         NSError *typeError = [CMISErrors createCMISErrorWithCode:kCMISErrorCodeInvalidArgument
-                                                         withDetailedDescription:[NSString stringWithFormat:@"Property '%@' is neither an object type property nor an aspect property", propertyId]];
+                                                             detailedDescription:[NSString stringWithFormat:@"Property '%@' is neither an object type property nor an aspect property", propertyId]];
                         completionBlock(nil, typeError);
                         return;
                     }
@@ -186,7 +185,7 @@
                     if (aspectPropertyDefinition == nil)
                     {
                         NSError *typeError = [CMISErrors createCMISErrorWithCode:kCMISErrorCodeInvalidArgument
-                                                         withDetailedDescription:[NSString stringWithFormat:@"Unknown aspect property: %@", propertyId]];
+                                                             detailedDescription:[NSString stringWithFormat:@"Unknown aspect property: %@", propertyId]];
                         completionBlock(nil, typeError);
                         return;
                     }
@@ -393,7 +392,7 @@
 
 - (NSString *)stringFromDate:(NSDate *)date
 {
-    return [[CMISDateUtil defaultDateFormatter] stringFromDate:date];
+    return [CMISDateUtil stringFromDate:date];
 }
 
 

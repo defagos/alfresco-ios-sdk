@@ -169,7 +169,7 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
         
 //    __weak AlfrescoDocumentFolderService *weakSelf = self;
     NSInputStream *inputStream = [NSInputStream inputStreamWithData:data];
-    [self.cmisSession createDocumentFromInputStream:inputStream withMimeType:mimeType withProperties:properties inFolder:folder.identifier bytesExpected:[data length] completionBlock:^(NSString *identifier, NSError *error){
+    [self.cmisSession createDocumentFromInputStream:inputStream mimeType:mimeType properties:properties inFolder:folder.identifier bytesExpected:[data length] completionBlock:^(NSString *identifier, NSError *error){
         if (nil == identifier)
         {
             NSError *alfrescoError = [AlfrescoErrors alfrescoErrorWithUnderlyingError:error andAlfrescoErrorCode:kAlfrescoErrorCodeDocumentFolder];
@@ -646,11 +646,11 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 //    __weak AlfrescoDocumentFolderService *weakSelf = self;
     [self.cmisSession.binding.navigationService
      retrieveParentsForObject:node.identifier
-     withFilter:nil
-     withIncludeRelationships:CMISIncludeRelationshipBoth
-     withRenditionFilter:nil
-     withIncludeAllowableActions:YES
-     withIncludeRelativePathSegment:YES
+     filter:nil
+     relationships:CMISIncludeRelationshipBoth
+     renditionFilter:nil
+     includeAllowableActions:YES
+     includeRelativePathSegment:YES
      completionBlock:^(NSArray *parents, NSError *error){
          
          log(@"retrieveParentFolderOfNode::in completionBlock");
@@ -696,7 +696,7 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
 
     CMISOperationContext *operationContext = [CMISOperationContext defaultOperationContext];
     operationContext.renditionFilterString = @"cmis:thumbnail";
-    [self.cmisSession retrieveObject:node.identifier withOperationContext:operationContext completionBlock:^(CMISObject *cmisObject, NSError *error){
+    [self.cmisSession retrieveObject:node.identifier operationContext:operationContext completionBlock:^(CMISObject *cmisObject, NSError *error){
         if (nil == cmisObject)
         {
             completionBlock(nil, error);
@@ -814,7 +814,7 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
         {
             CMISDocument *document = (CMISDocument *)cmisObject;
             NSInputStream *inputStream = [NSInputStream inputStreamWithData:data];
-            [document changeContentToContentOfInputStream:inputStream bytesExpected:[data length] withFileName:document.name withOverwriteExisting:YES completionBlock:^(NSError *error) {
+            [document changeContentToContentOfInputStream:inputStream bytesExpected:[data length] fileName:document.name mimeType:document.contentStreamMediaType overwrite:YES completionBlock:^(NSError *error) {
                 if (error)
                 {
                     completionBlock(nil, error);
@@ -925,8 +925,8 @@ typedef void (^CMISObjectCompletionBlock)(CMISObject *cmisObject, NSError *error
                      CMISStringInOutParameter *inOutParam = [CMISStringInOutParameter inOutParameterUsingInParameter:cmisObject.identifier];
                      [self.cmisSession.binding.objectService
                       updatePropertiesForObject:inOutParam
-                      withProperties:updatedProperties
-                      withChangeToken:nil
+                      properties:updatedProperties
+                      changeToken:nil
                       completionBlock:^(NSError *updateError){
                           if (nil != error)
                           {

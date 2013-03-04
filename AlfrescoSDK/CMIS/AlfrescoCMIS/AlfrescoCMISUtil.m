@@ -81,7 +81,9 @@
             CMISExtensionElement *valueExtensionElement = [propertyExtension.children objectAtIndex:0];
             if (valueExtensionElement.value)
             {
-                propertyData.values = [CMISAtomParserUtil parsePropertyValue:valueExtensionElement.value withPropertyType:propertyExtension.name];
+                NSMutableArray *values = [NSMutableArray array];
+                [CMISAtomParserUtil parsePropertyValue:valueExtensionElement.value propertyType:propertyExtension.name addToArray:values];
+                propertyData.values = [NSArray arrayWithArray:values];
             }
 
             [cmisObject.properties addProperty:propertyData];

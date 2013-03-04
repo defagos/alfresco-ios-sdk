@@ -1,15 +1,20 @@
 /*
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
 
-        http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
  */
 
 #import <Foundation/Foundation.h>
@@ -25,7 +30,6 @@ extern NSString * const kCMISAtomEntryRel;
 extern NSString * const kCMISAtomEntryHref;
 extern NSString * const kCMISAtomEntryType;
 extern NSString * const kCMISAtomEntryObject;
-extern NSString * const kCMISAtomEntryObjectId;
 extern NSString * const kCMISAtomEntryProperties;
 extern NSString * const kCMISAtomEntryPropertyId;
 extern NSString * const kCMISAtomEntryPropertyString;
@@ -33,14 +37,13 @@ extern NSString * const kCMISAtomEntryPropertyInteger;
 extern NSString * const kCMISAtomEntryPropertyDecimal;
 extern NSString * const kCMISAtomEntryPropertyDateTime;
 extern NSString * const kCMISAtomEntryPropertyBoolean;
+extern NSString * const kCMISAtomEntryPropertyUri;
+extern NSString * const kCMISAtomEntryPropertyHtml;
 extern NSString * const kCMISAtomEntryPropertyDefId;
 extern NSString * const kCMISAtomEntryDisplayName;
 extern NSString * const kCMISAtomEntryQueryName;
 extern NSString * const kCMISAtomEntryValue;
 extern NSString * const kCMISAtomEntryValueTrue;
-extern NSString * const kCMISAtomEntryBaseTypeId;
-extern NSString * const kCMISAtomEntryBaseTypeDocument;
-extern NSString * const kCMISAtomEntryBaseTypeFolder;
 extern NSString * const kCMISAtomEntryContent;
 extern NSString * const kCMISAtomEntrySrc;
 extern NSString * const kCMISAtomEntryAllowableActions;
@@ -183,3 +186,9 @@ extern NSString * const kCMISUriTemplateQuery;
 extern NSString * const kCMISAtomLinkAttrHref;
 extern NSString * const kCMISAtomLinkAttrType;
 extern NSString * const kCMISAtomLinkAttrRel;
+
+// Constants for HTTP request headers
+extern NSString * const kCMISHTTPHeaderContentType;
+extern NSString * const kCMISHTTPHeaderContentDisposition;
+extern NSString * const kCMISHTTPHeaderContentDispositionAttachment;
+
