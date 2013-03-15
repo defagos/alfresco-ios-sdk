@@ -67,7 +67,7 @@
 		4E944B0415E3D6BA00E89D69 /* AlfrescoCloudNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E944AFE15E3D6BA00E89D69 /* AlfrescoCloudNetwork.m */; };
 		4E944B0515E3D6BA00E89D69 /* AlfrescoCloudSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E944AFF15E3D6BA00E89D69 /* AlfrescoCloudSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E944B0615E3D6BA00E89D69 /* AlfrescoCloudSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E944B0015E3D6BA00E89D69 /* AlfrescoCloudSession.m */; };
-		4E9CE53216D511CF004C7934 /* AlfrescoRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9CE53016D511CF004C7934 /* AlfrescoRequest.h */; };
+		4E9CE53216D511CF004C7934 /* AlfrescoRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9CE53016D511CF004C7934 /* AlfrescoRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E9CE53316D511CF004C7934 /* AlfrescoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9CE53116D511CF004C7934 /* AlfrescoRequest.m */; };
 		4EA177EB15E4DC3C00BE806B /* AlfrescoRepositoryCapabilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EA177E915E4DC3C00BE806B /* AlfrescoRepositoryCapabilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EA177EC15E4DC3C00BE806B /* AlfrescoRepositoryCapabilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA177EA15E4DC3C00BE806B /* AlfrescoRepositoryCapabilities.m */; };
@@ -1026,6 +1026,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9CE53216D511CF004C7934 /* AlfrescoRequest.h in Headers */,
 				73971A9116AD5B700056031F /* AlfrescoFileManager.h in Headers */,
 				4EBF68F9164D1C4900D6F06C /* AlfrescoNetworkProvider.h in Headers */,
 				4E944AFB15E3D6AB00E89D69 /* AlfrescoRepositorySession.h in Headers */,
@@ -1065,6 +1066,7 @@
 				4E3FE89D165E805700BDAB31 /* AlfrescoOAuthLoginDelegate.h in Headers */,
 				4E80E8E81614438800922D5D /* AlfrescoOAuthHelper.h in Headers */,
 				4E90EE7C15D25F9200302F5D /* AlfrescoConstants.h in Headers */,
+				73CB83B316C4187500B780A6 /* CMISRequest.h in Headers */,
 				4EB077DA15B00EE800DF7DED /* AlfrescoAuthenticationProvider.h in Headers */,
 				4EB077E015B00EE800DF7DED /* AlfrescoObjectConverter.h in Headers */,
 				4EA6D4E915D2B444004059AF /* AlfrescoSortingUtils.h in Headers */,
@@ -1171,7 +1173,6 @@
 				73CB83B016C4187500B780A6 /* CMISRepositoryInfo.h in Headers */,
 				73CB83B116C4187500B780A6 /* CMISRepositoryInfoParser.h in Headers */,
 				73CB83B216C4187500B780A6 /* CMISRepositoryService.h in Headers */,
-				73CB83B316C4187500B780A6 /* CMISRequest.h in Headers */,
 				73CB83B416C4187500B780A6 /* CMISServiceDocumentParser.h in Headers */,
 				73CB83B516C4187500B780A6 /* CMISSession.h in Headers */,
 				73CB83B616C4187500B780A6 /* CMISSessionParameters.h in Headers */,
@@ -1182,7 +1183,6 @@
 				73CB83BB16C4187500B780A6 /* CMISURLUtil.h in Headers */,
 				73CB83BC16C4187500B780A6 /* CMISVersioningService.h in Headers */,
 				73CB83BD16C4187500B780A6 /* CMISWorkspace.h in Headers */,
-				4E9CE53216D511CF004C7934 /* AlfrescoRequest.h in Headers */,
 				4EA2AE4716DE25DE0053D05D /* CMISBase64InputStream.h in Headers */,
 				4EA2AE4816DE25DE0053D05D /* CMISLog.h in Headers */,
 			);
