@@ -206,8 +206,8 @@
     NSNumber *allowUntrustedServerFlag = [self.sessionData objectForKey:kAlfrescoAllowUntrustedSSLCertificate];
     if (nil != allowUntrustedServerFlag)
     {
-        [v3params setObject:allowUntrustedServerFlag forKey:kCMISSessionAllowUntrustedSSLCertificate];
-        [v4params setObject:allowUntrustedServerFlag forKey:kCMISSessionAllowUntrustedSSLCertificate];
+        [v3params setObject:allowUntrustedServerFlag forKey:kAlfrescoAllowUntrustedSSLCertificate];
+        [v4params setObject:allowUntrustedServerFlag forKey:kAlfrescoAllowUntrustedSSLCertificate];
     }
 
     __block AlfrescoRequest *request = [[AlfrescoRequest alloc] init];
